@@ -1,5 +1,7 @@
-let dispValue = -1;
-let func = undefined;
+leftInput = null; 
+rightInput = null; 
+currOperator = null; 
+isResult = false;
 
 // operators
 const add = (a, b) => a+b;
@@ -13,49 +15,84 @@ function operate(a, b, operation) {
 
 input = document.querySelector('#input');
 input.textContent = '';
-eq = document.querySelector('#eq');
-eq.textContent = '';
 
 digits = document.querySelectorAll('.digit');
 operators = document.querySelectorAll('.operator');
 clear = document.querySelector('#clear');
+equal = document.querySelector('#equal');
+percent = document.querySelector('#perc'); 
 
 // append listeners
 digits.forEach(digit => {
     digit.addEventListener('click', () => {
-        input.textContent += digit.textContent;
+        console.log(currOperator,leftInput, rightInput);
+        if (currOperator == null) {
+            if (isResult) {
+                input.textContent = '';
+                isResult = false;
+            }
+            input.textContent += digit.textContent;
+            leftInput = parseFloat(input.textContent)
+        } else {
+            if (rightInput == null) {
+                input.textContent = '';
+            }
+            input.textContent += digit.textContent;
+            rightInput = parseFloat(input.textContent);
+        }
+        
     })
 })
 
 clear.addEventListener('click', () => {
     input.textContent = '';
-    eq.textContent = '';
-    dispValue = -1;
+    leftInput = null; 
+    rightInput = null; 
+    currOperator = null; 
 })
 
+function evaluate() {
+    console.log(currOperator,leftInput, rightInput);
+    if (leftInput == null || currOperator == null) return; 
+    if (leftInput != null && rightInput == null) rightInput = leftInput; 
+    output = operate(leftInput, rightInput, currOperator);
+    input.textContent = output.toString();
+    console.log(output);
+    leftInput = output; 
+    rightInput = null;
+    currOperator = null; 
+    isResult = true;
+}
 
+equal.addEventListener('click', evaluate);
 
-function calculate() {
-    if (eq.textContent === '') {
-        eq.textContent = input.textContent + ' * ';
-        input.textContent = '';
+percent.addEventListener('click', () =>{
+    value = parseFloat(input.textContent);
+    newValue = value*0.01
+    input.textContent = newValue.toString();
+    if (currOperator == null) leftInput = newValue;
+    else rightInput = newValue;
+})
+
+function matchOperator(id) {
+    switch (id) {
+        case 'add':
+            return add;
+        case 'sub':
+            return sub;
+        case 'mult':
+            return mult;
+        case 'div':
+            return div; 
     }
 }
 
 operators.forEach(operator => {
-    switch (operator.id) {
-        case 'add':
-            func = add;
-            break;
-        case 'sub':
-            func = sub;
-            break;
-        case 'mult':
-            func = mult;
-            break;
-        case 'div':
-            func = div;
-    }
-    operator.addEventListener('click', calculate);
+    operator.addEventListener('click', () => {
+        if (leftInput == null) return; 
+        currOperator = matchOperator(operator.id)
+        if (rightInput != null) evaluate();
+    });
 })
+
 
