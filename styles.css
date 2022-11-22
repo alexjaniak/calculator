@@ -1,5 +1,30 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#calculator {
+    display: grid; 
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(100px, auto) repeat(5, 80px);
+}
+
 #display {
+    grid-column: span 4;
     border: 1px solid black;
-    height: 50px;
-    width: auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+#zero{
+    grid-column: span 2;
+}
+
+#input {
+    font-size: 60px;
+}
+
+.gui {
+    font-size: 20px;
 }
