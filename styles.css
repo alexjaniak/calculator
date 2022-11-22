@@ -1,20 +1,26 @@
 body {
     display: flex;
     justify-content: center;
+    background: #e6e6e6;
+    font-family: monospace;
 }
 
 #calculator {
     display: grid; 
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(100px, auto) repeat(5, 80px);
+    gap: 20px;
+    padding: 25px;
+    margin: 50px;
 }
 
 #display {
     grid-column: span 4;
-    border: 1px solid black;
     display: flex;
     justify-content: right;
     align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 #zero{
@@ -26,5 +32,19 @@ body {
 }
 
 .gui {
-    font-size: 20px;
+    font-size: 25px;
+}
+
+.gui, #display, #calculator {
+    font-family:  Courier, monospace;
+    border-style: none;
+    border-radius: 25px;
+    background: #e6e6e6;
+    box-shadow:  10px 10px 20px #d1d1d1,
+                 -10px -10px 20px #fbfbfb;  
+}
+
+.gui:active {
+    box-shadow: inset 10px 10px 20px #d1d1d1,
+            inset -10px -10px 20px #fbfbfb;
 }

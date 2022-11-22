@@ -24,7 +24,7 @@ operators = document.querySelectorAll('.operator');
 clear = document.querySelector('#clear');
 equal = document.querySelector('#equal');
 percent = document.querySelector('#perc'); 
-
+negate = document.querySelector('#negate');
 
 function matchOperator(id) {
     switch (id) {
@@ -41,13 +41,18 @@ function matchOperator(id) {
 
 function roundValue(val) {
     if(val.toString().length <= MAXINPUT) return val;
+    newVal = val.toPrecision(MAXINPUT)
+    if (newVal.toString().length > MAXINPUT) {
+        newVal = val.toPrecision(MAXINPUT-(newVal.toString().length-MAXINPUT));
+    }
+    return newVal;
 }
 
 function evaluate() {
     console.log(currOperator,leftInput, rightInput);
     if (leftInput == null || currOperator == null) return; 
     if (leftInput != null && rightInput == null) rightInput = leftInput; 
-    output = operate(leftInput, rightInput, currOperator);
+    output = roundValue(operate(leftInput, rightInput, currOperator));
     input.textContent = output.toString();
     console.log(output);
     leftInput = output; 
@@ -100,7 +105,15 @@ equal.addEventListener('click', evaluate);
 
 percent.addEventListener('click', () =>{
     value = parseFloat(input.textContent);
-    newValue = value*0.01
+    newValue = roundValue(value*0.01)
+    input.textContent = newValue.toString();
+    if (currOperator == null) leftInput = newValue;
+    else rightInput = newValue;
+})
+
+negate.addEventListener('click', () => {
+    value = parseFloat(input.textContent);
+    newValue = roundValue(value*-1);
     input.textContent = newValue.toString();
     if (currOperator == null) leftInput = newValue;
     else rightInput = newValue;
