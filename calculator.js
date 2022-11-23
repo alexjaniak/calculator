@@ -17,15 +17,15 @@ function operate(a, b, operation) {
 }
 
 // nodes
-input = document.querySelector('#input');
+let input = document.querySelector('#input');
 input.textContent = '';
 
-digits = document.querySelectorAll('.digit');
-operators = document.querySelectorAll('.operator');
-clear = document.querySelector('#clear');
-equal = document.querySelector('#equal');
-percent = document.querySelector('#perc'); 
-negate = document.querySelector('#negate');
+let digits = document.querySelectorAll('.digit');
+let operators = document.querySelectorAll('.operator');
+let clear = document.querySelector('#clear');
+let equal = document.querySelector('#equal');
+let percent = document.querySelector('#perc'); 
+let negate = document.querySelector('#negate');
 
 function matchOperator(id) {
     switch (id) {
@@ -53,7 +53,7 @@ function activate(button) {
 
 function roundValue(val) {
     if(val.toString().length <= MAXINPUT) return val;
-    newVal = val.toPrecision(MAXINPUT)
+    let newVal = val.toPrecision(MAXINPUT)
     if (newVal.toString().length > MAXINPUT) {
         newVal = val.toPrecision(MAXINPUT-(newVal.toString().length-MAXINPUT));
     }
@@ -68,7 +68,7 @@ function evaluate() {
         input.textContent = "DIV ERROR";
         leftInput = null;
     } else {
-        output = roundValue(operate(leftInput, rightInput, currOperator));
+        let output = roundValue(operate(leftInput, rightInput, currOperator));
         input.textContent = output.toString();
         console.log(output);
         leftInput = output; 
@@ -121,8 +121,8 @@ equal.addEventListener('click', evaluate);
 
 percent.addEventListener('click', () =>{
     if (input.textContent.length == 0) return;
-    value = parseFloat(input.textContent);
-    newValue = roundValue(value*0.01)
+    let value = parseFloat(input.textContent);
+    let newValue = roundValue(value*0.01)
     input.textContent = newValue.toString();
     if (currOperator == null) leftInput = newValue;
     else rightInput = newValue;
@@ -130,8 +130,8 @@ percent.addEventListener('click', () =>{
 
 negate.addEventListener('click', () => {
     if (input.textContent.length == 0) return;
-    value = parseFloat(input.textContent);
-    newValue = roundValue(value*-1);
+    let value = parseFloat(input.textContent);
+    let newValue = roundValue(value*-1);
     input.textContent = newValue.toString();
     if (currOperator == null) leftInput = newValue;
     else rightInput = newValue;
@@ -140,7 +140,7 @@ negate.addEventListener('click', () => {
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
         if (leftInput == null) return;
-        newOperator = matchOperator(operator.id)
+        let newOperator = matchOperator(operator.id)
         if (newOperator == currOperator) {
             evaluate();
             return;

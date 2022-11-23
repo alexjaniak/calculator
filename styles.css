@@ -41,6 +41,7 @@ body {
 
 .gui, #display, #calculator {
     font-family:  Courier, monospace;
+    color: black;
     border-style: none;
     border-radius: 25px;
     background: #e6e6e6;
