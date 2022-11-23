@@ -122,7 +122,8 @@ equal.addEventListener('click', evaluate);
 percent.addEventListener('click', () =>{
     if (input.textContent.length == 0) return;
     let value = parseFloat(input.textContent);
-    let newValue = roundValue(value*0.01)
+    let newValue = roundValue(value*0.01);
+    if (isNaN(newValue)) return;
     input.textContent = newValue.toString();
     if (currOperator == null) leftInput = newValue;
     else rightInput = newValue;
@@ -132,6 +133,7 @@ negate.addEventListener('click', () => {
     if (input.textContent.length == 0) return;
     let value = parseFloat(input.textContent);
     let newValue = roundValue(value*-1);
+    if (isNaN(newValue)) return;
     input.textContent = newValue.toString();
     if (currOperator == null) leftInput = newValue;
     else rightInput = newValue;
