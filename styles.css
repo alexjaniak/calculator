@@ -1,8 +1,12 @@
 body {
-    display: flex;
-    justify-content: center;
+    display: block;
     background: #e6e6e6;
     font-family: monospace;
+}
+
+.upper, .lower{
+    display: flex;
+    justify-content: center;
 }
 
 #calculator {
@@ -12,6 +16,7 @@ body {
     gap: 20px;
     padding: 25px;
     margin: 50px;
+    margin-bottom: 25px;
 }
 
 #display {
@@ -39,7 +44,7 @@ body {
     font-weight: bold;
 }
 
-.gui, #display, #calculator {
+.gui, #display, #calculator, #tag {
     font-family:  Courier, monospace;
     color: black;
     border-style: none;
@@ -59,3 +64,10 @@ body {
             inset -10px -10px 20px #fbfbfb;
 }
 
+#tag {
+    font-size: 15px;
+    text-shadow: 0px -1px rgba(0,0,0,.5);
+    border-radius: 10px;
+    font-weight: normal;
+    padding: 10px;
+}
